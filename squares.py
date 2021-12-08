@@ -52,10 +52,20 @@ def convert_numbers(list_of_strings):
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Calculate weighted aveage")
-    parser.add_argument('numbers', type=float, nargs='+', help="list of numbers")
-    parser.add_argument("--weights", "-w", type=float, nargs = '+', help="list of weights")     
+    parser.add_argument('file_numbers', help="file containing list of numbers")
+    parser.add_argument("--file_weights", "-w", help=" file containing list of weights")     
     arguments = parser.parse_args()
-    
-    result = average_of_squares(arguments.numbers, arguments.weights)
+    with open(arguments.file_numbers, 'r') as n_file:
+        numbers_strings = n_file.readlines()
+    numbers = convert_numbers(numbers_strings)
+
+    weights = None
+
+    if arguments.file_weights:
+        with open(arguments.file_weights, 'r') as w_file:
+            weight_strings = w_file.readlines()
+        weights = convert_numbers(weight_strings)
+        
+    result = average_of_squares(numbers, weights)
     
     print(result)
