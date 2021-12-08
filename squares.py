@@ -52,13 +52,10 @@ def convert_numbers(list_of_strings):
 
 if __name__ == "__main__":
     parser = ArgumentParser(description="Calculate weighted aveage")
-    parser.add_argument('numbers_strings', metavar='N', type=str, nargs = '+')
-    weight_strings = ["1","1","1"]        
+    parser.add_argument('numbers', type=float, nargs='+', help="list of numbers")
+    parser.add_argument("--weights", "-w", type=float, nargs = '+', help="list of weights")     
     arguments = parser.parse_args()
-
-    numbers = convert_numbers(arguments.numbers_strings)
-    weights = convert_numbers(weight_strings)
     
-    result = average_of_squares(numbers, weights)
+    result = average_of_squares(arguments.numbers, arguments.weights)
     
     print(result)
